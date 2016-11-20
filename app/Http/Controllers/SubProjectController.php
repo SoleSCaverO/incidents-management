@@ -19,7 +19,6 @@ class SubProjectController extends Controller
     {
         $project_id = $request->get('project');
         $name = $request->get('name');
-        $level = $request->get('level');
         $state = $request->get('state');
         $visibility = $request->get('visibility');
         $description= $request->get('description');
@@ -31,7 +30,6 @@ class SubProjectController extends Controller
 
         $project = Project::create([
             'name'=>$name,
-            'level_id'=>$level,
             'state_id'=>$state,
             'visibility'=>$visibility,
             'description'=>$description,
@@ -46,7 +44,6 @@ class SubProjectController extends Controller
     {
         $id = $request->get('id');
         $name = $request->get('name');
-        $level = $request->get('level');
         $state = $request->get('state');
         $visibility = $request->get('visibility');
         $description= $request->get('description');
@@ -57,7 +54,6 @@ class SubProjectController extends Controller
 
         $project = Project::find($id);
         $project->name = $name;
-        $project->level_id = $level;
         $project->state_id = $state;
         $project->visibility = $visibility;
         $project->description = $description;

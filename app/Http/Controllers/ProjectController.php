@@ -12,14 +12,20 @@ use App\Http\Requests;
 class ProjectController extends Controller
 {
     function index(){
-        $projects = Project::where('project_id',0)->get();
+        $base_projects = Project::where('project_id',0)->get(); //if project_id exist, there is subprojects.
+        $projects = [];
+
+        foreach ( $base_projects as $base_project ) {
+            $subprojects = Project::where('project_id',$base_project->id)->count();
+            $projects[]=[$base_project,$subprojects];
+        }
+
         return view('project.index')->with(compact('projects'));
     }
 
     function create( Request $request )
     {
         $name = $request->get('name');
-        $level = $request->get('level');
         $state = $request->get('state');
         $visibility = $request->get('visibility');
         $description= $request->get('description');
@@ -31,7 +37,6 @@ class ProjectController extends Controller
 
         $project = Project::create([
            'name'=>$name,
-           'level_id'=>$level,
            'state_id'=>$state,
            'visibility'=>$visibility,
            'description'=>$description
@@ -45,7 +50,6 @@ class ProjectController extends Controller
     {
         $id = $request->get('id');
         $name = $request->get('name');
-        $level = $request->get('level');
         $state = $request->get('state');
         $visibility = $request->get('visibility');
         $description= $request->get('description');
@@ -56,7 +60,6 @@ class ProjectController extends Controller
 
         $project = Project::find($id);
         $project->name = $name;
-        $project->level_id = $level;
         $project->state_id = $state;
         $project->visibility = $visibility;
         $project->description = $description;

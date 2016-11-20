@@ -8,6 +8,10 @@
         {
             resize: none;
         }
+        .color
+        {
+            color:blue;
+        }
     </style>
 @endsection
 
@@ -21,7 +25,6 @@
                 <thead>
                 <tr>
                     <th>Proyecto</th>
-                    <th>Nivel de servicio</th>
                     <th>Estado</th>
                     <th>Visibilidad</th>
                     <th>Descripción</th>
@@ -31,23 +34,21 @@
                 <tbody>
                 @foreach( $projects as $project )
                     <tr>
-                        <td>{{ $project->name }}</td>
-                        <td>{{ $project->level->name }}</td>
-                        <td>{{ $project->state->name }}</td>
-                        <td>{{( $project->visibility ==1)?'Público':'Privado'}}</td>
-                        <td>{{ $project->description }}</td>
+                        <td>{{ $project[0]->name }}</td>
+                        <td>{{ $project[0]->state->name }}</td>
+                        <td>{{( $project[0]->visibility ==1)?'Público':'Privado'}}</td>
+                        <td>{{ $project[0]->description }}</td>
                         <td>
-                            <button class="btn btn-primary" data-edit="{{ $project->id }}"
-                                    data-name="{{ $project->name }}"
-                                    data-level="{{ $project->level_id }}"
-                                    data-state="{{ $project->state_id }}"
-                                    data-visibility="{{ $project->visibility }}"
-                                    data-description="{{ $project->description }}"> Editar
+                            <button class="btn btn-primary" data-edit="{{ $project[0]->id }}"
+                                    data-name="{{ $project[0]->name }}"
+                                    data-state="{{ $project[0]->state_id }}"
+                                    data-visibility="{{ $project[0]->visibility }}"
+                                    data-description="{{ $project[0]->description }}"> Editar
                             </button>
-                            <button class="btn btn-danger" data-delete="{{ $project->id }}" data-name="{{ $project->name }}">
+                            <button class="btn btn-danger" data-delete="{{ $project[0]->id }}" data-name="{{ $project[0]->name }}">
                                 Eliminar
                             </button>
-                            <a class="btn btn-warning" href="{{url('subproyectos/'.$project->id)}}">Subproyectos</a>
+                            <a class="btn btn-warning" href="{{url('subproyectos-'.$project[0]->id)}}">Subproyectos ({{ $project[1] }})</a>
                         </td>
                     </tr>
                 @endforeach
@@ -73,15 +74,6 @@
                             <label class="control-label col-md-3" for="name">Nombre<span class="required">*</span></label>
                             <div class="col-md-8">
                                 <input id="name" name="name" required="required" class="form-control inside">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="name">Nivel de servicio</label>
-                            <div class="col-md-6">
-                                <select name="level" id="level" class="form-control">
-
-                                </select>
                             </div>
                         </div>
 
@@ -139,15 +131,6 @@
                             <label class="control-label col-md-3" for="name">Nombre<span class="required">*</span></label>
                             <div class="col-md-8">
                                 <input id="name" name="name" required="required" class="form-control inside">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="name">Nivel de servicio</label>
-                            <div class="col-md-6">
-                                <select name="level" id="level" class="form-control">
-
-                                </select>
                             </div>
                         </div>
 

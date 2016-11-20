@@ -22,7 +22,6 @@
                 <thead>
                 <tr>
                     <th>Subproyecto</th>
-                    <th>Nivel de servicio</th>
                     <th>Estado</th>
                     <th>Visibilidad</th>
                     <th>Descripción</th>
@@ -33,14 +32,12 @@
                 @foreach( $subprojects as $subproject )
                     <tr>
                         <td>{{ $subproject->name }}</td>
-                        <td>{{ $subproject->level->name }}</td>
                         <td>{{ $subproject->state->name }}</td>
                         <td>{{( $subproject->visibility ==1)?'Público':'Privado'}}</td>
                         <td>{{ $subproject->description }}</td>
                         <td>
                             <button class="btn btn-primary" data-edit="{{ $subproject->id }}"
                                     data-name="{{ $subproject->name }}"
-                                    data-level="{{ $subproject->level_id }}"
                                     data-state="{{ $subproject->state_id }}"
                                     data-visibility="{{ $subproject->visibility }}"
                                     data-description="{{ $subproject->description }}"> Editar
@@ -77,15 +74,6 @@
                             <label class="control-label col-md-3" for="name">Nombre<span class="required">*</span></label>
                             <div class="col-md-8">
                                 <input id="name" name="name" required="required" class="form-control inside">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="name">Nivel de servicio</label>
-                            <div class="col-md-6">
-                                <select name="level" id="level" class="form-control">
-
-                                </select>
                             </div>
                         </div>
 
@@ -143,15 +131,6 @@
                             <label class="control-label col-md-3" for="name">Nombre<span class="required">*</span></label>
                             <div class="col-md-8">
                                 <input id="name" name="name" required="required" class="form-control inside">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="name">Nivel de servicio</label>
-                            <div class="col-md-6">
-                                <select name="level" id="level" class="form-control">
-
-                                </select>
                             </div>
                         </div>
 

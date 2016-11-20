@@ -15,8 +15,6 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('level_id')->unsigned()->default(1);
-            $table->foreign('level_id')->references('id')->on('levels');
             $table->integer('state_id')->unsigned()->default(1);
             $table->foreign('state_id')->references('id')->on('states');
             $table->integer('visibility')->default(1);//1:Público,2:Privado

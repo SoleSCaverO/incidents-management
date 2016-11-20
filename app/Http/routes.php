@@ -21,14 +21,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('proyectos/registrar','ProjectController@create');
     Route::post('proyectos/editar','ProjectController@edit');
     Route::post('proyectos/eliminar','ProjectController@delete');
-    Route::get('proyectos-niveles','ProjectController@level');
     Route::get('proyectos-estados','ProjectController@state');
 
     // Subproyectos
-    Route::get('subproyectos/{id}','SubProjectController@index');
+    Route::get('subproyectos-{id}','SubProjectController@index');
     Route::post('subproyectos/registrar','SubProjectController@create');
     Route::post('subproyectos/editar','SubProjectController@edit');
     Route::post('subproyectos/eliminar','SubProjectController@delete');
+
+    // Niveles
+    Route::get('proyecto-niveles','LevelController@show');
+    Route::get('proyecto-niveles-{id}','LevelController@index');
 
     // Incidencias
     Route::get('proyecto-incidencias','IncidentController@show');
@@ -40,5 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('incidencias-estados','IncidentController@state');
     Route::get('incidencias-frecuencias','IncidentController@frequency');
     Route::get('incidencias-prioridades','IncidentController@priority');
+
+    Route::get('tests','LevelController@test');
 
 });

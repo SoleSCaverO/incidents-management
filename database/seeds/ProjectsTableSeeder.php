@@ -1,6 +1,7 @@
 <?php
 
 use App\Level;
+use App\Profile;
 use App\Project;
 use App\State;
 use App\Visibility;
@@ -16,17 +17,17 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
         //Levels
-        Level::create([
-            'name'=>'Service desk'
+        Profile::create([
+            'name'=>'Administrador de red'
         ]);
-        Level::create([
-            'name'=>'Administradores de red/servidor'
+        Profile::create([
+            'name'=>'Administrador de servidores'
         ]);
-        Level::create([
-            'name'=>'Desarrolladores y arquitectos'
+        Profile::create([
+            'name'=>'Desarrollador'
         ]);
-        Level::create([
-            'name'=>'Proveedores'
+        Profile::create([
+            'name'=>'Arquitecto de sistemas'
         ]);
 
         //States
@@ -43,38 +44,32 @@ class ProjectsTableSeeder extends Seeder
         //Projects
         Project::create([
             'name'=>'Proyecto test 01',
-            'level_id'=>2,
             'state_id'=>1
         ]);
 
         Project::create([
             'name'=>'Proyecto test 02',
-            'level_id'=>3,
             'state_id'=>1
         ]);
 
         Project::create([
             'name'=>'Proyecto test 03',
-            'level_id'=>4,
             'state_id'=>1
         ]);
 
         //Subprojects
         Project::create([
             'name'=>'Subproyecto 01 de proyecto 01',
-            'level_id'=>4,
             'state_id'=>1,
             'project_id'=>1
         ]);
         Project::create([
             'name'=>'Subproyecto 01 de proyecto 02',
-            'level_id'=>3,
             'state_id'=>1,
             'project_id'=>2
         ]);
         Project::create([
             'name'=>'Subproyecto 02 de proyecto 02',
-            'level_id'=>3,
             'state_id'=>1,
             'project_id'=>2
         ]);

@@ -4,8 +4,11 @@ var $modalRegister;
 var $modalEdit;
 var $modalDelete;
 
+var states = [];
+
 function principal()
 {
+    loadStates();
     $modalRegister = $('#modalRegister');
     $modalEdit = $('#modalEdit');
     $modalDelete = $('#modalDelete');
@@ -14,9 +17,21 @@ function principal()
     $('[data-edit]').on('click',modalEdit);
     $('[data-delete]').on('click',modalDelete);
 
-    $('#formRegister').on('submit',processProject);
-    $('#formEdit').on('submit',processProject);
-    $('#formDelete').on('submit',processProject);
+    $('#formRegister').on('submit',subproject);
+    $('#formEdit').on('submit',subproject);
+    $('#formDelete').on('submit',subproject);
+}
+
+function loadStates()
+{
+    $.ajax({
+        url:'../public/proyectos-estados',
+        type:'GET'
+    }).done(function (response) {
+        $.each( response,function(key,value ){
+            states.push(value);
+        });
+    });
 }
 
 function modalRegister()
@@ -24,25 +39,10 @@ function modalRegister()
     var project = $('#project').val();
     $modalRegister.find('[name=project]').val(project);
 
-    $.ajax({
-        url:'../proyectos-niveles',
-        type:'GET'
-    }).done(function (response) {
-        $modalRegister.find('[name=level]').html('');
-        $.each( response,function(key,value ){
-            $modalRegister.find('[name=level]').append('<option value="'+value.id +'">'+value.name+'</option>');
-        });
-    });
-
-    $.ajax({
-        url:'../proyectos-estados',
-        type:'GET'
-    }).done(function (response) {
-        $modalRegister.find('[name=state]').html('');
-        $.each( response,function(key,value ){
-            $modalRegister.find('[name=state]').append('<option value="'+value.id +'">'+value.name+'</option>');
-        });
-    });
+    // States
+    $modalRegister.find('[name=state]').html('');
+    for( var j=0; j<states.length; j++ )
+        $modalRegister.find('[name=state]').append('<option value="'+states[j].id +'">'+states[j].name+'</option>');
 
     $modalRegister.modal('show');
 }
@@ -51,7 +51,6 @@ function modalEdit()
 {
     var id = $(this).data('edit');
     var name = $(this).data('name');
-    var level = $(this).data('level');
     var state = $(this).data('state');
     var visibility = $(this).data('visibility');
     var description= $(this).data('description');
@@ -76,31 +75,12 @@ function modalEdit()
         );
     }
 
-    $.ajax({
-        url:'../proyectos-niveles',
-        type:'GET'
-    }).done(function (response) {
-        $modalEdit.find('[name=level]').html('');
-        $.each( response,function(key,value ){
-            if(  value.id == level )
-                $modalEdit.find('[name=level]').append('<option value="'+value.id +'" selected>'+value.name+'</option>');
-            else
-                $modalEdit.find('[name=level]').append('<option value="'+value.id +'">'+value.name+'</option>');
-        });
-    });
-
-    $.ajax({
-        url:'../proyectos-estados',
-        type:'GET'
-    }).done(function (response) {
-        $modalEdit.find('[name=state]').html('');
-        $.each( response,function(key,value ){
-            if( value.id == state  )
-                $modalEdit.find('[name=state]').append('<option value="'+value.id +'" selected>'+value.name+'</option>');
-            else
-                $modalEdit.find('[name=state]').append('<option value="'+value.id +'">'+value.name+'</option>');
-        });
-    });
+    $modalEdit.find('[name=state]').html('');
+    for( var j=0; j<states.length; j++ )
+        if(  state[j] == state )
+            $modalEdit.find('[name=state]').append('<option value="'+states[j].id +'" selected>'+states[j].name+'</option>');
+        else
+            $modalEdit.find('[name=state]').append('<option value="'+states[j].id +'">'+states[j].name+'</option>');
 
     $modalEdit.modal('show');
 }
@@ -115,7 +95,7 @@ function modalDelete()
     $modalDelete.modal('show');
 }
 
-function processProject()
+function subproject()
 {
     event.preventDefault();
     $.ajax({

@@ -114,12 +114,12 @@
             <li class="nav-divider"></li>
             <li>
                 <a href="{{url('proyectos')}}">
-                    <i class="fa fa-bullseye"></i><span class="link-title"> Proyectos</span>
+                    <i class="fa fa-bullseye"></i><span class="link-title"> Gestionar proyectos</span>
                 </a>
             </li>
             <li>
-                <a href="{{url('proyecto-incidencias')}}">
-                    <i class="fa fa-exchange"></i><span class="link-title"> Incidencias</span>
+                <a href="{{url('proyecto-niveles')}}">
+                    <i class="fa fa-exchange"></i><span class="link-title"> Gestionar Niveles</span>
                 </a>
             </li>
             <li>
